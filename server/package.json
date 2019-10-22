@@ -1,0 +1,26 @@
+{
+  "name": "graphql-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tahmid-tanzim/GraphQL-Tutorial.git"
+  },
+  "author": "Tahmid Tanzim <tahmid.tanzim@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tahmid-tanzim/GraphQL-Tutorial/issues"
+  },
+  "homepage": "https://github.com/tahmid-tanzim/GraphQL-Tutorial#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
