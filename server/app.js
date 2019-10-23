@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const GraphQLHttp = require('express-graphql');
 const mongoose = require('mongoose');
 const schema = require('./schema');
@@ -9,6 +10,7 @@ const USER = {
 };
 
 const app = express();
+
 mongoose.connect(`mongodb://${USER.NAME}:${USER.PASSWORD}@ds237588.mlab.com:37588/gql-ninja`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -16,6 +18,7 @@ mongoose.connect(`mongodb://${USER.NAME}:${USER.PASSWORD}@ds237588.mlab.com:3758
 
 mongoose.connection.once('open', () => console.log('Connected to Mongo Database in mLab'));
 
+app.use(cors);
 app.use('/graph', GraphQLHttp({
     schema,
     graphiql: true
