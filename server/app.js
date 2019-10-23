@@ -18,7 +18,7 @@ mongoose.connect(`mongodb://${USER.NAME}:${USER.PASSWORD}@ds237588.mlab.com:3758
 
 mongoose.connection.once('open', () => console.log('Connected to Mongo Database in mLab'));
 
-app.use(cors);
+app.use(cors());
 app.use('/graph', GraphQLHttp({
     schema,
     graphiql: true
