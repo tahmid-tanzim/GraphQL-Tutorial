@@ -4,27 +4,12 @@ const {
     GraphQLID,
     GraphQLInt,
     GraphQLList,
+    GraphQLNonNull,
     GraphQLSchema
 } = require('graphql');
 
 const Book = require('./models/book');
 const Author = require('./models/author');
-
-// Dummy Data
-// const books = [
-//     {name: 'Name of the Wind', genre: 'Fantasy', id: '1', authorId: '1'},
-//     {name: 'The Final Empire', genre: 'Fantasy', id: '2', authorId: '2'},
-//     {name: 'The Long Earth', genre: 'Sci-Fi', id: '3', authorId: '3'},
-//     {name: 'The Hero of Ages', genre: 'Fantasy', id: '4', authorId: '2'},
-//     {name: 'The Colour of Magic', genre: 'Fantasy', id: '5', authorId: '3'},
-//     {name: 'The Light Fantastic', genre: 'Fantasy', id: '6', authorId: '3'}
-// ];
-//
-// const authors = [
-//     {name: 'Patrick Rothfuss', age: 44, id: '1'},
-//     {name: 'Brandon Sanderson', age: 42, id: '2'},
-//     {name: 'Terry Pratchett', age: 66, id: '3'},
-// ];
 
 const BookType = new GraphQLObjectType({
     name: 'Book',
@@ -106,8 +91,8 @@ const Mutation = new GraphQLObjectType({
         addAuthor: {
             type: AuthorType,
             args: {
-                name: {type: GraphQLString},
-                age: {type: GraphQLInt}
+                name: {type: GraphQLNonNull(GraphQLString)},
+                age: {type: GraphQLNonNull(GraphQLInt)}
             },
             resolve: (parent, args) => {
                 let authorObj = new Author({
@@ -121,9 +106,9 @@ const Mutation = new GraphQLObjectType({
         addBook: {
             type: BookType,
             args: {
-                name: {type: GraphQLString},
+                name: {type: GraphQLNonNull(GraphQLString)},
                 genre: {type: GraphQLString},
-                authorId: {type: GraphQLID}
+                authorId: {type: GraphQLNonNull(GraphQLID)}
             },
             resolve: (parent, args) => {
                 let bookObj = new Book({
