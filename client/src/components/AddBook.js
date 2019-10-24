@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {graphql} from 'react-apollo';
 import {compose} from 'redux';
-import {getBooksQuery, getAuthorQuery, addBookMutation} from '../queries';
+import {getAuthorQuery, addBookMutation} from '../queries';
 
 class AddBook extends Component {
     constructor(props) {
@@ -27,13 +27,15 @@ class AddBook extends Component {
     submitForm(e) {
         e.preventDefault();
         const {name, genre, authorId} = this.state;
-
         this.props.addBook({
-            variables: {name, genre, authorId},
-            refetchQueries: [{query: getBooksQuery}]
+            variables: {name, genre, authorId}
         }).then(({data}) => {
             console.log('Success addBookResponse: ', data.addBook);
-        }, (error) => console.error('Error addBookResponse: ', error));
+            const {id, name} = data.addBook;
+            this.props.updateBookList({id, name});
+        }, (error) => console.error('Error addBookResponse: ', error)).finally(() => {
+            this.props.updateBookList(null);
+        });
     }
 
     render() {

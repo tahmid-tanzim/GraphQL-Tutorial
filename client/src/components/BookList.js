@@ -13,9 +13,12 @@ class BookList extends Component {
     }
 
     displayBooks() {
-        const {data} = this.props;
+        const {data, newBook} = this.props;
 
         if (data.loading) return 'Loading...';
+        if(newBook) {
+            data.books.push(newBook);
+        }
 
         return (<ul id="book-list">
             {data.books.map(book => <li key={book.id}
