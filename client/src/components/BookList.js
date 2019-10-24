@@ -5,13 +5,22 @@ import {getBooksQuery} from '../queries';
 import BookDetails from './BookDetails';
 
 class BookList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedBookId: null
+        };
+    }
+
     displayBooks() {
         const {data} = this.props;
 
         if (data.loading) return 'Loading...';
 
         return (<ul id="book-list">
-            {data.books.map(book => <li key={book.id}>{book.name}</li>)}
+            {data.books.map(book => <li key={book.id}
+                                        onClick={(e) => this.setState({selectedBookId: book.id})}
+                                        style={ {cursor: 'pointer'} }>{book.name}</li>)}
         </ul>);
     }
 
@@ -20,7 +29,7 @@ class BookList extends Component {
             <div>
                 {this.displayBooks()}
                 <hr/>
-                <BookDetails/>
+                <BookDetails bookId={this.state.selectedBookId}/>
             </div>
         );
     }
