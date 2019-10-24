@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {graphql} from 'react-apollo';
-import {getAuthorQuery} from '../queries';
+import {compose} from 'redux';
+import {getBooksQuery, getAuthorQuery, addBookMutation} from '../queries';
 
 class AddBook extends Component {
     constructor(props) {
@@ -8,24 +9,31 @@ class AddBook extends Component {
         this.state = {
             name: "",
             genre: "",
-            authorId: "",
+            authorId: ""
         };
         this.submitForm = this.submitForm.bind(this);
     }
 
     displayAuthors() {
-        const {data} = this.props;
+        const {getAuthor} = this.props;
 
-        if (data.loading) return 'Loading...';
+        if (getAuthor.loading) return 'Loading...';
 
         return (<select onChange={e => this.setState({authorId: e.target.value})}>
-            {data.authors.map(author => <option key={author.id} value={author.id}>{author.name}</option>)}
+            {getAuthor.authors.map(author => <option key={author.id} value={author.id}>{author.name}</option>)}
         </select>);
     }
 
     submitForm(e) {
         e.preventDefault();
-        console.log(this.state);
+        const {name, genre, authorId} = this.state;
+
+        this.props.addBook({
+            variables: {name, genre, authorId},
+            refetchQueries: [{query: getBooksQuery}]
+        }).then(({data}) => {
+            console.log('Success addBookResponse: ', data.addBook);
+        }, (error) => console.error('Error addBookResponse: ', error));
     }
 
     render() {
@@ -48,10 +56,14 @@ class AddBook extends Component {
                     <label>Author:</label>
                     {this.displayAuthors()}
                 </div>
-                <button>+</button>
+                <button>Add New</button>
             </form>
         );
     }
 }
 
-export default graphql(getAuthorQuery)(AddBook);
+
+export default compose(
+    graphql(getAuthorQuery, {name: "getAuthor"}),
+    graphql(addBookMutation, {name: "addBook"})
+)(AddBook);
