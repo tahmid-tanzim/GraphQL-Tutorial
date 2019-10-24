@@ -1,38 +1,47 @@
 import React, {Component} from 'react';
-import {gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
-
-const getAuthorQuery = gql`
-{
-    authors {
-        id
-        name
-    }
-}
-`;
+import {getAuthorQuery} from '../queries';
 
 class AddBook extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "",
+            genre: "",
+            authorId: "",
+        };
+        this.submitForm = this.submitForm.bind(this);
+    }
+
     displayAuthors() {
         const {data} = this.props;
 
         if (data.loading) return 'Loading...';
 
-        return (<select>
+        return (<select onChange={e => this.setState({authorId: e.target.value})}>
             {data.authors.map(author => <option key={author.id} value={author.id}>{author.name}</option>)}
         </select>);
     }
 
+    submitForm(e) {
+        e.preventDefault();
+        console.log(this.state);
+    }
+
     render() {
         return (
-            <form id="add-book">
+            <form id="add-book"
+                  onSubmit={this.submitForm}>
                 <div className="field">
                     <label>Book Name:</label>
-                    <input type="text"/>
+                    <input type="text"
+                           onChange={e => this.setState({name: e.target.value})}/>
                 </div>
 
                 <div className="field">
                     <label>Genre:</label>
-                    <input type="text"/>
+                    <input type="text"
+                           onChange={e => this.setState({genre: e.target.value})}/>
                 </div>
 
                 <div className="field">
