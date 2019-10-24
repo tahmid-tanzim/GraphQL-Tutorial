@@ -19,8 +19,7 @@ class BookList extends Component {
 
         return (<ul id="book-list">
             {data.books.map(book => <li key={book.id}
-                                        onClick={(e) => this.setState({selectedBookId: book.id})}
-                                        style={ {cursor: 'pointer'} }>{book.name}</li>)}
+                                        onClick={(e) => this.setState({selectedBookId: book.id})}>{book.name}</li>)}
         </ul>);
     }
 
@@ -28,7 +27,6 @@ class BookList extends Component {
         return (
             <div>
                 {this.displayBooks()}
-                <hr/>
                 <BookDetails bookId={this.state.selectedBookId}/>
             </div>
         );

@@ -14,7 +14,6 @@ function App() {
             <div id="main">
                 <h1>Reading List</h1>
                 <BookList/>
-                <hr/>
                 <AddBook/>
             </div>
         </ApolloProvider>
