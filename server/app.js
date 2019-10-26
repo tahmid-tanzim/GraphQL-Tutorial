@@ -10,8 +10,10 @@ const USER = {
 };
 
 const app = express();
+const DB_URL = `mongodb://${USER.NAME}:${USER.PASSWORD}@ds237588.mlab.com:37588/gql-ninja`;
+// const DB_URL = `mongodb://${USER.NAME}:${USER.PASSWORD}@database:27017/GraphQLTutorialDB`;
 
-mongoose.connect(`mongodb://${USER.NAME}:${USER.PASSWORD}@ds237588.mlab.com:37588/gql-ninja`, {
+mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -24,7 +26,7 @@ app.use('/graph', GraphQLHttp({
     graphiql: true
 }));
 
-const server = app.listen(4000, () => console.log('App listening on PORT 4000'));
+const server = app.listen(3001, () => console.log('App listening on PORT 3001'));
 
 process.on('SIGINT', () => {
     mongoose.connection.close(false, () => {

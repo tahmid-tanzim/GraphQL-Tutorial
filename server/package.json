@@ -1,11 +1,11 @@
 {
   "name": "graphql-tutorial",
   "version": "1.0.0",
-  "description": "",
+  "description": "GraphQL Tutorial",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prod_start": "node app.js"
   },
   "repository": {
     "type": "git",
