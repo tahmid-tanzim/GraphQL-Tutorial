@@ -15,7 +15,7 @@ docker-compose up
 docker-compose up -d
 
 docker exec -it mongo-container bash
-mongo -u tanzim -p root101 --authenticationDatabase GraphQLTutorialDB
+mongo -u tanzim -p root101 --authenticationDatabase graphql-tutorial
 
 Mongoose foreign key constraints implement
 

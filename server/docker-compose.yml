@@ -1,21 +1,22 @@
 version: '3'
 services:
-  app:
+  database:
+    container_name: mongo-container
+    image: mongo
+    restart: always
+    ports:
+      - 27019:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: tanzim
+      MONGO_INITDB_ROOT_PASSWORD: root101
+      MONGO_INITDB_DATABASE: graphql-tutorial
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - ./mongo-volume:/data/db
+  webapp:
     container_name: node-server-container
     build: .
     ports:
-      - '4000:3001'
-#    links:
-#      - database
-#  database:
-#    container_name: mongo-container
-#    image: mongo:latest
-#    ports:
-#      - '27017:27017'
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: tanzim
-#      MONGO_INITDB_ROOT_PASSWORD: root101
-#      MONGO_INITDB_DATABASE: GraphQLTutorialDB
-#    volumes:
-#      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
-#      - ./mongo-volume:/data/db
+      - 4000:3001
+    links:
+      - database

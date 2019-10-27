@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "GraphQL Tutorial",
   "main": "app.js",
+  "engines": {
+    "node": ">=12"
+  },
   "scripts": {
     "start": "nodemon app.js",
     "prod_start": "node app.js"
