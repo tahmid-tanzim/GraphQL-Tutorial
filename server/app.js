@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const schema = require('./schema');
 
 // const Book = require('./models/book');
-// const Author = require('./models/author');
+const Author = require('./models/author');
 
 const USER = {
     NAME: 'tanzim',
@@ -42,14 +42,14 @@ app.use('/graph', GraphQLHttp({
     graphiql: true
 }));
 
-// app.get('/init', (req, res) => {
-//     Author.find({})
-//         .sort('name')
-//         .exec((err, authors) => {
-//             if (err) res.status(400).json({err});
-//             res.status(200).json({id: 1, authors});
-//         });
-// });
+app.get('/init', (req, res) => {
+    Author.find({})
+        .sort('name')
+        .exec((err, authors) => {
+            if (err) res.status(400).json({err});
+            res.status(200).json({id: 1, authors});
+        });
+});
 
 const server = app.listen(port, () => console.log('Express App listening on PORT ' + port));
 
