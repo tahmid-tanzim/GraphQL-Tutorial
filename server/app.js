@@ -14,13 +14,14 @@ const USER = {
 
 const app = express();
 // const DB_URL = `mongodb://${USER.NAME}:${USER.PASSWORD}@ds237588.mlab.com:37588/gql-ninja`;
-const DB_URL = `mongodb://${USER.NAME}:${USER.PASSWORD}@database:27017/graphql-tutorial`;
+const DB_URL = `mongodb://database:27017/admin`;
 
 mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).then(() => console.log('Connected to Mongo Database in mLab'),
-        err => console.log('DB Error: ', err));
+})
+    .then(() => console.log('Connected to Mongo Database in mLab'))
+    .catch(err => console.log('DB Error: ', err));
 
 app.use(cors());
 app.use('/graph', GraphQLHttp({
