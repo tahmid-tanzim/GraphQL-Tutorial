@@ -10,7 +10,8 @@ services:
   database:
     container_name: mongo-container
     image: mongo
-    restart: always
+    restart: unless-stopped
+    env_file: .env
     ports:
       - 27019:27017
 #    environment:

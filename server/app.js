@@ -12,16 +12,29 @@ const USER = {
     PASSWORD: 'root101'
 };
 
-const app = express();
-// const DB_URL = `mongodb://${USER.NAME}:${USER.PASSWORD}@ds237588.mlab.com:37588/gql-ninja`;
-const DB_URL = `mongodb://database:27017/admin`;
+// const {
+//     MONGO_USERNAME,
+//     MONGO_PASSWORD,
+//     MONGO_HOSTNAME,
+//     MONGO_PORT,
+//     MONGO_DB
+// } = process.env;
 
-mongoose.connect(DB_URL, {
+const port = process.env.PORT || 3001;
+
+const app = express();
+// const URL = `mongodb://${USER.NAME}:${USER.PASSWORD}@ds237588.mlab.com:37588/gql-ninja`;
+const URL = `mongodb://@database:27017/admin`;
+
+mongoose.connect(URL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    reconnectTries: Number.MAX_VALUE,
+    reconnectInterval: 500,
+    connectTimeoutMS: 10000
 })
-    .then(() => console.log('Connected to Mongo Database in mLab'))
-    .catch(err => console.log('DB Error: ', err));
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log('MongoDB Error: ', err));
 
 app.use(cors());
 app.use('/graph', GraphQLHttp({
@@ -38,7 +51,7 @@ app.use('/graph', GraphQLHttp({
 //         });
 // });
 
-const server = app.listen(3001, () => console.log('App listening on PORT 3001'));
+const server = app.listen(port, () => console.log('Express App listening on PORT ' + port));
 
 process.on('SIGINT', () => {
     mongoose.connection.close(false, () => {
