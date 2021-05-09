@@ -1,5 +1,5 @@
 # Docker
-docker container run -d -p 8080:80 --name office_macbook_nginx nginx
+docker container run -d -p 8080:80 --name macbook_nginx nginx
 
 docker container ls
 docker ps
@@ -7,7 +7,7 @@ docker image ls
 
 docker pull node
 
-docker container run -d -p 4005:4000 -v /Users/tahmid.tanzim/Projects/GraphQL-Tutorial/server --name graphql-node-server node
+docker container run -d -p 4005:4000 -v /Users/lupin/Projects/GraphQL-Tutorial/server --name graphql-node-server node
 
 
 docker-compose build
